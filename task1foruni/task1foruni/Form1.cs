@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -22,18 +23,15 @@ namespace task1foruni
             {
                 await conn.OpenAsync();
                 using (SqlCommand cmd = new SqlCommand(@"
-            SELECT b.BookId, b.Title, a.Name, b.PublishedYear, b.Price
-            FROM Books b
-            INNER JOIN Authors a ON b.AuthorId = a.AuthorId;", conn))
+                    SELECT b.BookId, b.Title, a.AuthorName, b.PublishedYear, b.Price
+                    FROM Books b
+                    INNER JOIN Authors a ON b.AuthorId = a.AuthorId;", conn))
                 {
-                    cmd.CommandType = CommandType.Text;
-
                     DataTable dt = new DataTable();
                     using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
                     {
                         dt.Load(reader);
                     }
-
                     dataGridViewforshowdata.DataSource = dt;
                 }
             }
@@ -47,7 +45,7 @@ namespace task1foruni
                 int authorId;
                 using (SqlCommand getAuthorCmd = new SqlCommand("SELECT AuthorId FROM Authors WHERE AuthorName = @Name", conn))
                 {
-                    getAuthorCmd.Parameters.AddWithValue("@Name", txtAuthorName.Text);
+                    getAuthorCmd.Parameters.Add(CreateParameter("@Name", txtAuthorName.Text, DbType.String));
                     object result = await getAuthorCmd.ExecuteScalarAsync();
 
                     if (result == null)
@@ -61,15 +59,22 @@ namespace task1foruni
                 using (SqlCommand cmd = new SqlCommand("InsertBook", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(new SqlParameter("@Title", SqlDbType.NVarChar) { Value = txtTitle.Text });
-                    cmd.Parameters.Add(new SqlParameter("@AuthorId", SqlDbType.Int) { Value = authorId });
-                    cmd.Parameters.Add(new SqlParameter("@PublishedYear", SqlDbType.Int) { Value = Convert.ToInt32(txtPublishedYear.Text) });
-                    cmd.Parameters.Add(new SqlParameter("@Price", SqlDbType.Decimal) { Value = Convert.ToDecimal(txtPrice.Text) });
+                    cmd.Parameters.Add(CreateParameter("@Title", txtTitle.Text, DbType.String));
+                    cmd.Parameters.Add(CreateParameter("@AuthorId", authorId, DbType.Int32));
+                    cmd.Parameters.Add(CreateParameter("@PublishedYear", Convert.ToInt32(txtPublishedYear.Text), DbType.Int32));
+                    cmd.Parameters.Add(CreateParameter("@Price", Convert.ToDecimal(txtPrice.Text), DbType.Decimal));
 
                     await cmd.ExecuteNonQueryAsync();
                 }
             }
             MessageBox.Show("Book Inserted Successfully!");
+        }
+
+        private DbParameter CreateParameter(string name, object value, DbType type)
+        {
+            DbParameter param = new SqlParameter(name, value);
+            param.DbType = type;
+            return param;
         }
 
         private async void buttonUPDATE_Click(object sender, EventArgs e)
@@ -85,7 +90,7 @@ namespace task1foruni
                     int authorId;
                     using (SqlCommand getAuthorCmd = new SqlCommand("SELECT AuthorId FROM Authors WHERE AuthorName = @Name", conn))
                     {
-                        getAuthorCmd.Parameters.AddWithValue("@Name", txtAuthorName.Text);
+                        getAuthorCmd.Parameters.Add(CreateParameter("@Name", txtAuthorName.Text, DbType.String));
                         object result = await getAuthorCmd.ExecuteScalarAsync();
 
                         if (result == null)
@@ -99,11 +104,11 @@ namespace task1foruni
                     using (SqlCommand cmd = new SqlCommand("UpdateBook", conn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(new SqlParameter("@BookId", SqlDbType.Int) { Value = bookId });
-                        cmd.Parameters.Add(new SqlParameter("@Title", SqlDbType.NVarChar) { Value = txtTitle.Text });
-                        cmd.Parameters.Add(new SqlParameter("@AuthorId", SqlDbType.Int) { Value = authorId });
-                        cmd.Parameters.Add(new SqlParameter("@PublishedYear", SqlDbType.Int) { Value = Convert.ToInt32(txtPublishedYear.Text) });
-                        cmd.Parameters.Add(new SqlParameter("@Price", SqlDbType.Decimal) { Value = Convert.ToDecimal(txtPrice.Text) });
+                        cmd.Parameters.Add(CreateParameter("@BookId", bookId, DbType.Int32));
+                        cmd.Parameters.Add(CreateParameter("@Title", txtTitle.Text, DbType.String));
+                        cmd.Parameters.Add(CreateParameter("@AuthorId", authorId, DbType.Int32));
+                        cmd.Parameters.Add(CreateParameter("@PublishedYear", Convert.ToInt32(txtPublishedYear.Text), DbType.Int32));
+                        cmd.Parameters.Add(CreateParameter("@Price", Convert.ToDecimal(txtPrice.Text), DbType.Decimal));
 
                         await cmd.ExecuteNonQueryAsync();
                     }
@@ -128,7 +133,7 @@ namespace task1foruni
                     using (SqlCommand cmd = new SqlCommand("DeleteBook", conn))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(new SqlParameter("@BookId", SqlDbType.Int) { Value = bookId });
+                        cmd.Parameters.Add(CreateParameter("@BookId", bookId, DbType.Int32));
 
                         await cmd.ExecuteNonQueryAsync();
                     }
@@ -141,7 +146,6 @@ namespace task1foruni
             }
         }
 
-
         private void dataGridViewforshowdata_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dataGridViewforshowdata.SelectedRows.Count > 0)
@@ -149,7 +153,7 @@ namespace task1foruni
                 var row = dataGridViewforshowdata.SelectedRows[0];
 
                 txtTitle.Text = row.Cells["Title"].Value.ToString();
-                txtAuthorName.Text = row.Cells["Name"].Value.ToString();
+                txtAuthorName.Text = row.Cells["AuthorName"].Value.ToString();
                 txtPublishedYear.Text = row.Cells["PublishedYear"].Value.ToString();
                 txtPrice.Text = row.Cells["Price"].Value.ToString();
             }
@@ -157,7 +161,6 @@ namespace task1foruni
 
         private void label1_Click(object sender, EventArgs e)
         {
-
         }
     }
 }

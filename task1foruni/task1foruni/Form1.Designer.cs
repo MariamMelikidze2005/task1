@@ -124,13 +124,12 @@
             this.label1.Size = new System.Drawing.Size(463, 17);
             this.label1.TabIndex = 3;
             this.label1.Text = "მონიშნეთ სასურველი სტრიქონი წაშლისთვის ან განახლებსთვის";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.label2.Location = new System.Drawing.Point(618, 358);
+            this.label2.Location = new System.Drawing.Point(618, 327);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(170, 31);
             this.label2.TabIndex = 3;
@@ -187,9 +186,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(265, 217);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(66, 13);
+            this.label5.Size = new System.Drawing.Size(81, 13);
             this.label5.TabIndex = 7;
-            this.label5.Text = "for author ID";
+            this.label5.Text = "for author name";
             // 
             // label6
             // 
