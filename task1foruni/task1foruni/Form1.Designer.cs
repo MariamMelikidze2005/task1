@@ -54,9 +54,9 @@
             // dataGridViewforshowdata
             // 
             this.dataGridViewforshowdata.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewforshowdata.Location = new System.Drawing.Point(423, 150);
+            this.dataGridViewforshowdata.Location = new System.Drawing.Point(412, 86);
             this.dataGridViewforshowdata.Name = "dataGridViewforshowdata";
-            this.dataGridViewforshowdata.Size = new System.Drawing.Size(337, 145);
+            this.dataGridViewforshowdata.Size = new System.Drawing.Size(376, 228);
             this.dataGridViewforshowdata.TabIndex = 0;
             this.dataGridViewforshowdata.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewforshowdata_CellContentClick);
             // 
@@ -80,7 +80,7 @@
             // 
             // buttonUPDATE
             // 
-            this.buttonUPDATE.Location = new System.Drawing.Point(105, 25);
+            this.buttonUPDATE.Location = new System.Drawing.Point(159, 16);
             this.buttonUPDATE.Name = "buttonUPDATE";
             this.buttonUPDATE.Size = new System.Drawing.Size(98, 40);
             this.buttonUPDATE.TabIndex = 1;
@@ -100,7 +100,7 @@
             // 
             // buttonDELETE
             // 
-            this.buttonDELETE.Location = new System.Drawing.Point(105, 95);
+            this.buttonDELETE.Location = new System.Drawing.Point(159, 82);
             this.buttonDELETE.Name = "buttonDELETE";
             this.buttonDELETE.Size = new System.Drawing.Size(98, 40);
             this.buttonDELETE.TabIndex = 1;
@@ -110,7 +110,7 @@
             // 
             // numBookId
             // 
-            this.numBookId.Location = new System.Drawing.Point(258, 68);
+            this.numBookId.Location = new System.Drawing.Point(445, 210);
             this.numBookId.Name = "numBookId";
             this.numBookId.Size = new System.Drawing.Size(120, 20);
             this.numBookId.TabIndex = 2;
@@ -118,18 +118,19 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.label1.Location = new System.Drawing.Point(252, 34);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label1.Location = new System.Drawing.Point(265, 52);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 31);
+            this.label1.Size = new System.Drawing.Size(463, 17);
             this.label1.TabIndex = 3;
-            this.label1.Text = "id";
+            this.label1.Text = "მონიშნეთ სასურველი სტრიქონი წაშლისთვის ან განახლებსთვის";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.label2.Location = new System.Drawing.Point(427, 104);
+            this.label2.Location = new System.Drawing.Point(618, 358);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(170, 31);
             this.label2.TabIndex = 3;
@@ -223,14 +224,14 @@
             this.Controls.Add(this.txtTitle);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.numBookId);
             this.Controls.Add(this.buttonDELETE);
             this.Controls.Add(this.buttonINSERT);
             this.Controls.Add(this.buttonUPDATE);
             this.Controls.Add(this.buttonSELECT);
             this.Controls.Add(this.dataGridViewforshowdata);
             this.Controls.Add(this.dataGridViewforseeresult);
+            this.Controls.Add(this.numBookId);
+            this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewforshowdata)).EndInit();
