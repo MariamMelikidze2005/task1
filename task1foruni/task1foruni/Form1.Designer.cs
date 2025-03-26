@@ -54,7 +54,7 @@
             // dataGridViewforshowdata
             // 
             this.dataGridViewforshowdata.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewforshowdata.Location = new System.Drawing.Point(423, 59);
+            this.dataGridViewforshowdata.Location = new System.Drawing.Point(423, 150);
             this.dataGridViewforshowdata.Name = "dataGridViewforshowdata";
             this.dataGridViewforshowdata.Size = new System.Drawing.Size(337, 145);
             this.dataGridViewforshowdata.TabIndex = 0;
@@ -63,9 +63,9 @@
             // dataGridViewforseeresult
             // 
             this.dataGridViewforseeresult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewforseeresult.Location = new System.Drawing.Point(423, 255);
+            this.dataGridViewforseeresult.Location = new System.Drawing.Point(714, 261);
             this.dataGridViewforseeresult.Name = "dataGridViewforseeresult";
-            this.dataGridViewforseeresult.Size = new System.Drawing.Size(337, 156);
+            this.dataGridViewforseeresult.Size = new System.Drawing.Size(10, 10);
             this.dataGridViewforseeresult.TabIndex = 0;
             // 
             // buttonSELECT
@@ -129,7 +129,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.label2.Location = new System.Drawing.Point(427, 25);
+            this.label2.Location = new System.Drawing.Point(427, 104);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(170, 31);
             this.label2.TabIndex = 3;
@@ -139,11 +139,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.label3.Location = new System.Drawing.Point(427, 221);
+            this.label3.Location = new System.Drawing.Point(565, 347);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(195, 31);
+            this.label3.Size = new System.Drawing.Size(0, 31);
             this.label3.TabIndex = 3;
-            this.label3.Text = "Chosen by you";
             // 
             // txtTitle
             // 
@@ -230,8 +229,8 @@
             this.Controls.Add(this.buttonINSERT);
             this.Controls.Add(this.buttonUPDATE);
             this.Controls.Add(this.buttonSELECT);
-            this.Controls.Add(this.dataGridViewforseeresult);
             this.Controls.Add(this.dataGridViewforshowdata);
+            this.Controls.Add(this.dataGridViewforseeresult);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewforshowdata)).EndInit();

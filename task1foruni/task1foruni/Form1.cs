@@ -8,7 +8,6 @@ namespace task1foruni
 {
     public partial class Form1 : Form
     {
-        // Connection string for SQL Server
         private readonly string connectionString =
             "Server=DESKTOP-JFOLDL4\\SQLEXPRESS;Database=LibraryDB;Integrated Security=True;";
 
@@ -22,9 +21,12 @@ namespace task1foruni
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 await conn.OpenAsync();
-                using (SqlCommand cmd = new SqlCommand("GetAllBooks", conn))
+                using (SqlCommand cmd = new SqlCommand(@"
+            SELECT b.BookId, b.Title, a.Name, b.PublishedYear, b.Price
+            FROM Books b
+            INNER JOIN Authors a ON b.AuthorId = a.AuthorId;", conn))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.Text;
 
                     DataTable dt = new DataTable();
                     using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
@@ -83,7 +85,7 @@ namespace task1foruni
                     int authorId;
                     using (SqlCommand getAuthorCmd = new SqlCommand("SELECT AuthorId FROM Authors WHERE AuthorName = @Name", conn))
                     {
-                        getAuthorCmd.Parameters.AddWithValue("@AuthorName", txtAuthorName.Text);
+                        getAuthorCmd.Parameters.AddWithValue("@Name", txtAuthorName.Text);
                         object result = await getAuthorCmd.ExecuteScalarAsync();
 
                         if (result == null)
@@ -113,7 +115,6 @@ namespace task1foruni
                 MessageBox.Show("Please select a book to update.");
             }
         }
-
 
         private async void buttonDELETE_Click(object sender, EventArgs e)
         {
@@ -148,11 +149,12 @@ namespace task1foruni
                 var row = dataGridViewforshowdata.SelectedRows[0];
 
                 txtTitle.Text = row.Cells["Title"].Value.ToString();
-                txtAuthorName.Text = row.Cells["Name"].Value.ToString(); 
+                txtAuthorName.Text = row.Cells["Name"].Value.ToString();
                 txtPublishedYear.Text = row.Cells["PublishedYear"].Value.ToString();
                 txtPrice.Text = row.Cells["Price"].Value.ToString();
             }
-
         }
+
+
     }
 }
